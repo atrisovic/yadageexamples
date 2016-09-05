@@ -12,7 +12,7 @@
 #include "RooPlot.h"
 using namespace RooFit ;
 
-void gendata(const char* outfilename)
+void gendata(int numevents, const char* outfilename)
 {
    // Declare observable x
   RooRealVar x("x","x",0,10) ;
@@ -40,7 +40,7 @@ void gendata(const char* outfilename)
   RooRealVar nbkg("nbkg","number of background events",500,0,10000) ;
   RooAddPdf  model("model","(g1+g2)+a",RooArgList(bkg,sig),RooArgList(nbkg,nsig)) ;
 
-  RooDataSet *data = model.generate(x) ;
+  RooDataSet *data = model.generate(x, numevents) ;
 
   // Create a new workspace
   RooWorkspace *w = new RooWorkspace("w","workspace") ;
